@@ -11,8 +11,6 @@ import java.util.Collections;
 
 public class Deck{
 
-//used to determine whether the ace(s) has a value of 1 or 11 based on hand
-private static boolean changeAces = false;
 //used to model a real life, standard deck of 52 cards
 private static ArrayList<Card> deck;
 
