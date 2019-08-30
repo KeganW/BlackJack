@@ -1,8 +1,9 @@
 /*
  * Author: Kegan Wong
  * Date: 08/28/2019
- * Purpose: Used to run the game of Black Jack and utilize the card and deck 
- *          classes. Refresh java programming language for next quarter.
+ * Purpose: Used to run the game of Black Jack and utilize the card, deck and 
+ *          hand classes. Program intented to also refresh java programming 
+ *          language for next quarter.
  * File: Main.java
  */
 
@@ -68,41 +69,28 @@ CPUHand.add(casinoDeck.getDeck().get(--cardsLeft));
 //loop until there is a loser or winner 
 while (true){
   //print user's current hand and sum
-  Deck.printHand(playerHand, false); 
-  sumPlayer = Deck.sumHand(playerHand);
+  Hand.dealHand(playerHand, false); 
+  sumPlayer = Hand.sumHand(playerHand);
   System.out.println("Current sum: " + sumPlayer);
   
   
   System.out.println("////////////");
-  
+    
   //print only one card from the CPU's hand
-  Deck.printHand(CPUHand,true);
-  sumCPU = Deck.sumHand(CPUHand);
-  
-  
-  
+  Hand.dealHand(CPUHand,true);
+  sumCPU = Hand.sumHand(CPUHand);
+    
   //check for loser
-  if (sumPlayer > 21 && sumCPU > 21){    
-    System.out.println("\nGame over. Everyone lost.");
-    System.out.println("You had a sum of " + sumPlayer);
-    System.out.println("CPU had a sum of " + sumCPU);
+  if(Hand.checkLosingHand(sumPlayer, sumCPU)){
     break;
   }
   
-  else if (sumPlayer > 21) {
-     System.out.println("\nGame over. You lost.");
-     System.out.println("You had a sum of " + sumPlayer);
-     System.out.println("CPU had a sum of " + sumCPU);   
-     break;
+  //compares scores, whoever is closer to 21 wins   
+  else if (checkWinner){
+    Hand.checkWinningHand(sumPlayer, sumCPU);
+    break;
   }
-   
-  else if (sumCPU > 21) {
-     System.out.println("\nGame over. CPU lost.");
-     System.out.println("You had a sum of " + sumPlayer);
-     System.out.println("CPU had a sum of " + sumCPU); 
-     break;
-  }
-   
+    
   //asks for users next choice of action
   Scanner scan = new Scanner(System.in);
   System.out.println("\nChoices:");
@@ -114,7 +102,7 @@ while (true){
   if(input == 1) {
        
     playerHand.add(casinoDeck.getDeck().get(--cardsLeft));
-    determineCPUMove = Deck.CPUMovesAgain(CPUHand);
+    determineCPUMove = Hand.CPUMovesAgain(CPUHand);
       
     if (determineCPUMove == false) {
       System.out.println("\nCPU is content with its cards.\n");
@@ -131,12 +119,12 @@ while (true){
      
     while(true){
       
-    determineCPUMove = Deck.CPUMovesAgain(CPUHand);
+    determineCPUMove = Hand.CPUMovesAgain(CPUHand);
        
       if (determineCPUMove == true) {
         System.out.println("\nCPU decided to take another card.");
         CPUHand.add(casinoDeck.getDeck().get(--cardsLeft));
-        sumCPU = Deck.sumHand(CPUHand);     
+        sumCPU = Hand.sumHand(CPUHand);     
       }
        
       else if (determineCPUMove == false) {
@@ -149,28 +137,6 @@ while (true){
   //error message to invalid input
   else {
     System.out.println("You must enter 1 or 2 only.");
-  }
-  
-  //compares scores, whoever is closer to 21 wins   
-  if (checkWinner == true) {
-     
-    if (sumCPU > sumPlayer && sumCPU <= 21) {
-      System.out.println("\nCPU wins with a sum of " + sumCPU);
-      System.out.println("You had a sum of " + sumPlayer);
-      break;     
-    }
-    
-    else if (sumPlayer > sumCPU && sumPlayer <=21) {
-      System.out.println("\nYou win with a sum of " + sumPlayer);
-      System.out.println("CPU had a sum of " + sumCPU);
-      break;    
-    }
-    
-    else {
-      System.out.println("\nDraw with both sums being " + sumPlayer);
-      break;    
-    }
-    
   }
 }
 }
