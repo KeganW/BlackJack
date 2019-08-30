@@ -63,27 +63,21 @@ public static boolean CPUMovesAgain(ArrayList<Card> hand){
   
 //stores sum of CPU's current hand
 int sum = 0;
-//CPU will be more aggressive if it has an ace in possession
-boolean hasAce = false;
   //obtain sum of CPU hand and check for aces
-  for (Card card: hand){
-    if (card.getValue() == 1 || card.getValue()==11){
-      hasAce = true;
-    }
-    sum += card.getValue();
-  }
+  sum = sumHand(hand);
   //determines CPU decision based on sums and possession of ace
-  if (sum >= 15 && hasAce == false) {  
+  if (sum >= 15 && countAces(hand) == 0) {  
     return false;
   }
   
-  else if (sum <=17 && hasAce == true) {
+  else if (sum <=17 && countAces(hand) > 0) {
     return true;
   }
   
-  else if (sum>=18 && hasAce == true){
+  else if (sum>=18 && countAces(hand) > 0){
     return false;
   }
+  
     return true;  
 }
 
