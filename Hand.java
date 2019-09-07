@@ -66,16 +66,12 @@ int sum = 0;
   //obtain sum of CPU hand and check for aces
   sum = sumHand(hand);
   //determines CPU decision based on sums and possession of ace
-  if (sum >= 15 && countAces(hand) == 0) {  
+  if ((sum >= 15 && countAces(hand) == 0) || (sum>=18 && countAces(hand) > 0)) {  
     return false;
   }
   
   else if (sum <=17 && countAces(hand) > 0) {
     return true;
-  }
-  
-  else if (sum>=18 && countAces(hand) > 0){
-    return false;
   }
   
     return true;  
